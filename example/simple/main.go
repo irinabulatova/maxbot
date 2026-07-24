@@ -34,15 +34,10 @@ func main() {
 	bot.Handle("/help", func(c maxbot.Context) error {
 		kb := model.NewKeyboard()
 		kb.AddRow().
-			AddLink("docs", "https://dev.max.ru/docs").
-			AddCallBack("push me baby", "pushBtn")
+			AddLink("Документация", "https://dev.max.ru/docs").
+			AddCallBack("нажми на меня", "pushBtn")
 
-		err = c.Send("max мне в руки", maxbot.WithKeyboard(kb))
-		if err != nil {
-			return err
-		}
-
-		return nil
+		return c.Send("Основная информация:", maxbot.WithKeyboard(kb))
 	})
 
 	bot.Handle("/command", func(c maxbot.Context) error {
@@ -53,47 +48,28 @@ func main() {
 			strings.Join(command.Params, "\n"),
 			command.RemainingText,
 		)
-		err = c.Send(msg)
-		if err != nil {
-			return err
-		}
 
-		return nil
+		return c.Send(msg)
 	})
 
 	bot.Handle("/reply", func(c maxbot.Context) error {
 		kb := model.NewKeyboard()
 		kb.AddRow().
-			AddLink("docs", "https://dev.max.ru/docs")
+			AddLink("Документация", "https://dev.max.ru/docs")
 
-		err = c.Reply("reply", maxbot.WithKeyboard(kb))
-		if err != nil {
-			return err
-		}
-
-		return nil
+		return c.Reply("reply", maxbot.WithKeyboard(kb))
 	})
 
 	bot.HandleCallback("pushBtn", func(c maxbot.Context) error {
 		kb := model.NewKeyboard()
 		kb.AddRow().
-			AddLink("docs", "https://dev.max.ru/docs")
+			AddLink("Документация", "https://dev.max.ru/docs")
 
-		err = c.Answer("surprise", maxbot.WithKeyboard(kb))
-		if err != nil {
-			return err
-		}
-
-		return nil
+		return c.Answer("Изменено", maxbot.WithKeyboard(kb))
 	})
 
 	bot.Handle(maxbot.OnChatTitleChangedEvent, func(c maxbot.Context) error {
-		err = c.Send("title changed")
-		if err != nil {
-			return err
-		}
-
-		return nil
+		return c.Send("Заголовок чата изменен")
 	})
 
 	bot.Handle(maxbot.OnText, func(c maxbot.Context) error {
