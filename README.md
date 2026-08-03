@@ -55,7 +55,7 @@ func main() {
 
 # Основные концепции
 
-`Bot` — это центральный объект. Вы создаёте его с вашим [MaxBot Token](https://dev.max.ru/docs) и используете для регистрации обработчиков и запуска процесса получения обновлений (polling или webhook).
+`Bot` — это центральный объект. Вы создаёте его с вашим [MaxBot Token](https://dev.max.ru/docs) и используете для регистрации обработчиков и запуска процесса получения обновлений ([polling](https://dev.max.ru/docs-api/methods/GET/updates) или [webhook](https://dev.max.ru/docs-api/methods/POST/subscriptions)).
 ```go 
 bot := maxbot.New(token)
 ```

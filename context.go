@@ -14,6 +14,9 @@ type Context interface {
 	Context() context.Context
 	API() *maxbot.Api
 
+	Get(key string) (any, bool)
+	Set(key string, value any)
+
 	Send(text string, opts ...Option) error
 	Answer(text string, opts ...Option) error
 	Reply(text string, opts ...Option) error
@@ -25,6 +28,7 @@ type nativeContext struct {
 	ctx context.Context
 	b   *maxbot.Api
 	u   model.Update
+	box map[string]any
 }
 
 func NewContext(ctx context.Context, b *maxbot.Api, u model.Update) Context {
@@ -32,6 +36,7 @@ func NewContext(ctx context.Context, b *maxbot.Api, u model.Update) Context {
 		ctx: ctx,
 		b:   b,
 		u:   u,
+		box: make(map[string]any),
 	}
 }
 
@@ -45,6 +50,15 @@ func (c *nativeContext) Context() context.Context {
 
 func (c *nativeContext) API() *maxbot.Api {
 	return c.b
+}
+
+func (c *nativeContext) Get(key string) (any, bool) {
+	v, ok := c.box[key]
+	return v, ok
+}
+
+func (c *nativeContext) Set(key string, value any) {
+	c.box[key] = value
 }
 
 func (c *nativeContext) Send(text string, opts ...Option) error {
