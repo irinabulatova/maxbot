@@ -136,11 +136,11 @@ bot.Handle(maxbot.OnText, textHandler)
 
 ```go
 func myHandler(ctx *maxbot.Context) error {
-// Получить текст сообщения
-text := ctx.Message.Text
-
-// Ответить сообщением
-return ctx.Reply("Вы сказали: " + text)
+    // Получить текст сообщения
+    text := ctx.Message.Text
+    
+    // Ответить сообщением
+    return ctx.Reply("Вы сказали: " + text)
 }
 ```
 
@@ -152,10 +152,10 @@ Middleware (промежуточные обработчики) позволяю�
 ```go
 // Определяем middleware для логирования
 loggingMiddleware := func (next maxbot.HandlerFunc) maxbot.HandlerFunc {
-return func (ctx *maxbot.Context) error {
-log.Printf("Получено обновление от пользователя %d", ctx.Message.From.ID)
-return next(ctx)
-}
+    return func (ctx *maxbot.Context) error {
+        log.Printf("Получено обновление от пользователя %d", ctx.Message.From.ID)
+        return next(ctx)
+	}
 }
 
 // Применяем middleware к конкретному обработчику
@@ -163,6 +163,25 @@ bot.Handle("/secret", secretHandler, loggingMiddleware)
 
 // Или применяем глобально
 bot.Use(loggingMiddleware)
+```
+
+## Обработка ошибок в Middleware
+Перехватывайте и классифицируйте ошибки с помощью middleware:
+```go
+errorMiddleware := func(next maxbot.HandlerFunc) maxbot.HandlerFunc {
+    return func(ctx *maxbot.Context) error {
+        err := next(ctx)
+        if err != nil {
+            if errors.Is(err, ErrUserNotFound) {
+                return ctx.Reply("Пользователь не найден")
+            }
+            return ctx.Reply("Внутренняя ошибка")
+        }
+        return nil
+    }
+}
+
+bot.Use(errorMiddleware)
 ```
 
 ## Примеры
