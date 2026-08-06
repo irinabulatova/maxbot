@@ -109,13 +109,13 @@ go run main.go
 Для создания бота используйте команду:
 
 ```go 
-bot := maxbot.New(token)
+bot := maxbot.NewApi(token)
 ```
 
 Настройте Webhook бота с помощью опции:
 
 ```go 
-bot := maxbot.New(token, maxbot.WithWebhook("https://your-domain.com/webhook"))
+bot := maxbot.NewApi(token, maxbot.WithWebhook("https://your-domain.com/webhook"))
 ```
 
 ## Обработка сообщений и команд
