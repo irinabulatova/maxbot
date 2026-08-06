@@ -12,3 +12,9 @@ func WithKeyboard(keyboard *model.Keyboard) Option {
 		msg.AddKeyboard(keyboard)
 	}
 }
+
+func WithFormat(format model.TextFormat) Option {
+	return func(msg *maxbot.Message) {
+		msg.SetFormat(format)
+	}
+}
