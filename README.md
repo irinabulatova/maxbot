@@ -109,13 +109,13 @@ go run main.go
 Для создания бота используйте команду:
 
 ```go 
-bot := maxbot.NewApi(token)
+bot, err := maxbot.NewApi(token)
 ```
 
 Настройте Webhook бота с помощью опции:
 
 ```go 
-bot := maxbot.NewApi(token, maxbot.WithWebhook("https://your-domain.com/webhook"))
+bot, err := maxbot.NewApi(token, maxbot.WithWebhook("https://your-domain.com/webhook"))
 ```
 
 ## Обработка сообщений и команд
@@ -126,6 +126,15 @@ bot := maxbot.NewApi(token, maxbot.WithWebhook("https://your-domain.com/webhook"
 // Обработка команды
 bot.Handle("/start", startHandler)
 bot.Handle("/help", helpHandler)
+
+// Обработка callback
+bot.HandleCallback("pushBtn", func(c maxbot.Context) error {
+    kb := model.NewKeyboard()
+    kb.AddRow().
+    AddLink("Документация", "https://dev.max.ru/docs")
+    
+    return c.Answer("Изменено", maxbot.WithKeyboard(kb))
+})
 
 // Обработка всех текстовых сообщений (не начинающихся с '/')
 bot.Handle(maxbot.OnText, textHandler)
