@@ -18,7 +18,7 @@ type Context interface {
 	Send(text string, opts ...Option) error
 	Answer(text string, opts ...Option) error
 	Reply(text string, opts ...Option) error
-	Edit(text, mid string, opts ...Option) error
+	Edit(text string, opts ...Option) error
 	Delete(opts ...Option) error
 }
 
@@ -99,7 +99,7 @@ func (c *nativeContext) Reply(text string, opts ...Option) error {
 	return err
 }
 
-func (c *nativeContext) Edit(text, mid string, opts ...Option) error {
+func (c *nativeContext) Edit(text string, opts ...Option) error {
 	msg := maxbot.NewMessage().
 		SetText(text).
 		SetUser(c.u.UserID).
@@ -109,7 +109,7 @@ func (c *nativeContext) Edit(text, mid string, opts ...Option) error {
 		opt(msg)
 	}
 
-	_, err := c.b.Messages.EditMessage(c.ctx, mid, msg.MessageBody())
+	_, err := c.b.Messages.EditMessage(c.ctx, c.u.MessageID, msg.MessageBody())
 
 	return err
 }
