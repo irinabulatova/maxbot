@@ -20,18 +20,18 @@
 
 ```go
 opts := []maxbot.Opt{
-maxbot.WithHTTPClient(&http.Client{Timeout: 25 * time.Second}),
-// maxbot.WithWebhook("http://my-bot.cloud.hooli.local/webhook", "secret", []string{
-//     maxbot.OnBotAdded,
-//     maxbot.OnMessageCreated,
-//     maxbot.OnMessageCallback,
-// }),
-}
-
-token := os.Getenv("BOT_TOKEN")
-bot, err := maxbot.NewApi(token, opts...)
-if err != nil {
-log.Fatal(err)
+  maxbot.WithHTTPClient(&http.Client{Timeout: 25 * time.Second}),
+  // maxbot.WithWebhook("http://my-bot.cloud.hooli.local/webhook", "secret", []string{
+  //     maxbot.OnBotAdded,
+  //     maxbot.OnMessageCreated,
+  //     maxbot.OnMessageCallback,
+  // }),
+  }
+  
+  token := os.Getenv("BOT_TOKEN")
+  bot, err := maxbot.NewApi(token, opts...)
+  if err != nil {
+  log.Fatal(err)
 }
 ```
 
@@ -46,12 +46,12 @@ log.Fatal(err)
 
 ```go
 bot.Handle("/help", func (c maxbot.Context) error {
-kb := model.NewKeyboard()
-kb.AddRow().
-AddLink("Документация", "https://dev.max.ru/docs").
-AddCallBack("нажми на меня", "pushBtn")
-
-return c.Send("Основная информация:", maxbot.WithKeyboard(kb))
+  kb := model.NewKeyboard()
+  kb.AddRow().
+  AddLink("Документация", "https://dev.max.ru/docs").
+  AddCallBack("нажми на меня", "pushBtn")
+  
+  return c.Send("Основная информация:", maxbot.WithKeyboard(kb))
 })
 ```
 
@@ -62,15 +62,15 @@ return c.Send("Основная информация:", maxbot.WithKeyboard(kb))
 
 ```go
 bot.Handle("/command", func (c maxbot.Context) error {
-command := c.Update().GetCommand()
-msg := fmt.Sprintf(
-"command: %s\nbot name: %s\n params: \n%s\n text: %s\n",
-command.Command, command.BotName,
-strings.Join(command.Params, "\n"),
-command.RemainingText,
-)
-
-return c.Send(msg)
+  command := c.Update().GetCommand()
+  msg := fmt.Sprintf(
+  "command: %s\nbot name: %s\n params: \n%s\n text: %s\n",
+  command.Command, command.BotName,
+  strings.Join(command.Params, "\n"),
+  command.RemainingText,
+  )
+  
+  return c.Send(msg)
 })
 ```
 
@@ -81,11 +81,11 @@ return c.Send(msg)
 
 ```go
 bot.Handle("/reply", func (c maxbot.Context) error {
-kb := model.NewKeyboard()
-kb.AddRow().
-AddLink("docs", "https://dev.max.ru/docs")
-
-return c.Reply("reply", maxbot.WithKeyboard(kb))
+  kb := model.NewKeyboard()
+  kb.AddRow().
+  AddLink("docs", "https://dev.max.ru/docs")
+  
+  return c.Reply("reply", maxbot.WithKeyboard(kb))
 })
 ```
 
