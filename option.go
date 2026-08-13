@@ -18,3 +18,15 @@ func WithFormat(format model.TextFormat) Option {
 		msg.SetFormat(format)
 	}
 }
+
+func WithChat(id int64) Option {
+	return func(msg *maxbot.Message) {
+		msg.SetChat(id)
+	}
+}
+
+func WithUser(id int64) Option {
+	return func(msg *maxbot.Message) {
+		msg.SetUser(id)
+	}
+}
