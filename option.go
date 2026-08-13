@@ -30,3 +30,9 @@ func WithUser(id int64) Option {
 		msg.SetUser(id)
 	}
 }
+
+func WithAttachByToken(fileToken string, at model.AttachmentType) Option {
+	return func(msg *maxbot.Message) {
+		msg.AddAttachByToken(fileToken, at)
+	}
+}
