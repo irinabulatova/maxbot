@@ -107,7 +107,7 @@ func (a *Api) ProcessUpdate(_ context.Context, u model.Update) {
 func (a *Api) ProcessContext(c Context) {
 	u := c.Update()
 
-	if a.handle(callbackPrefix+c.Update().GetCallback().Payload, c) {
+	if a.handle(callbackPrefix+a.getCallback(u), c) {
 		return
 	}
 
@@ -218,6 +218,12 @@ func (a *Api) getCommand(u model.Update) string {
 	}
 
 	return ""
+}
+
+func (a *Api) getCallback(u model.Update) string {
+	callback := u.GetCallbackPayload()
+
+	return callback.Payload
 }
 
 func defaultOnError(err error, c Context) {
