@@ -65,8 +65,14 @@ func main() {
 		kb.AddRow().
 			AddLink("Документация", "https://dev.max.ru/docs")
 
+		// c.Answer("Изменено") // не только поменяет текст, но и удалит все кнопки
 		return c.Answer("Изменено", maxbot.WithKeyboard(kb))
 	})
+
+	//bot.HandleCallback("pushBtn", func(c maxbot.Context) error {
+	//	return c.Edit("Изменено") // изменить текст + удалить кнопки
+	//	return c.Edit("Изменено", maxbot.WithAttachments(c.Update().GetMessage().Body.Attachments)) // изменить только текст
+	//})
 
 	bot.Handle(maxbot.OnChatTitleChangedEvent, func(c maxbot.Context) error {
 		return c.Send("Заголовок чата изменен")
