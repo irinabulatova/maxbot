@@ -105,11 +105,13 @@ func (c *nativeContext) Edit(text string, opts ...Option) error {
 		SetUser(c.u.UserID).
 		SetChat(c.u.ChatID)
 
+	msg.MessageID = c.u.MessageID
+
 	for _, opt := range opts {
 		opt(msg)
 	}
 
-	_, err := c.b.Messages.EditMessage(c.ctx, c.u.MessageID, msg.MessageBody())
+	_, err := c.b.Messages.EditMessage(c.ctx, msg.MessageID, msg.MessageBody())
 
 	return err
 }
@@ -119,11 +121,13 @@ func (c *nativeContext) Delete(opts ...Option) error {
 		SetUser(c.u.UserID).
 		SetChat(c.u.ChatID)
 
+	msg.MessageID = c.u.MessageID
+
 	for _, opt := range opts {
 		opt(msg)
 	}
 
-	_, err := c.b.Messages.DeleteMessage(c.ctx, c.u.MessageID)
+	_, err := c.b.Messages.DeleteMessage(c.ctx, msg.MessageID)
 
 	return err
 }

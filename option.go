@@ -68,3 +68,9 @@ func WithAttachments(attachments []model.Attachment) Option {
 		msg.AddAttachments(attachments)
 	}
 }
+
+func WithMessageID(messageID string) Option {
+	return func(msg *maxbot.Message) {
+		msg.MessageID = messageID
+	}
+}
