@@ -123,7 +123,7 @@ return c.Send("Заголовок чата изменен")
 ### 5. Обработка текстовых сообщений
 
 ```go
-bot.Handle(maxbot.OnText, func (c maxbot.Context) error {
+bot.Handle(maxbot.OnMessageCreated, func (c maxbot.Context) error {
 //err = c.Send(fmt.Sprintf("%s - принято", c.Update().GetMessage().Body.Text))
 //if err != nil {
 //	return err
@@ -134,7 +134,7 @@ return nil
 })
 ```
 
-* **Событие**: Обработчик для `maxbot.OnText` срабатывает на все текстовые сообщения, которые не являются командами.
+* **Событие**: Обработчик для `maxbot.OnMessageCreated` срабатывает на все текстовые сообщения, которые не являются командами.
 * **Действие**: В текущей версии код отправки ответа закомментирован, и бот просто выводит полученный текст в
   стандартный
   вывод (`fmt.Println`). Это полезно для отладки или логирования.

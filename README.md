@@ -130,7 +130,7 @@ bot.Handle("/help", helpHandler)
 
 ```go
 // Обработка всех текстовых сообщений (не начинающихся с '/')
-bot.Handle(maxbot.OnText, textHandler)
+bot.Handle(maxbot.OnMessageCreated, textHandler)
 ```
 
 ### Обработка Callback-запросов
