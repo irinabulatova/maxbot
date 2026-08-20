@@ -20,5 +20,4 @@ const (
 	OnDialogMuted           = "dialog_muted"
 	OnDialogUnmuted         = "dialog_unmuted"
 	OnChatTitleChangedEvent = "chat_title_changed"
-	OnText                  = "text"
 )

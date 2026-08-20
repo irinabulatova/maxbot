@@ -78,7 +78,7 @@ func main() {
 		return c.Send("Заголовок чата изменен")
 	})
 
-	bot.Handle(maxbot.OnText, func(c maxbot.Context) error {
+	bot.Handle(maxbot.OnMessageCreated, func(c maxbot.Context) error {
 		//err = c.Send(fmt.Sprintf("%s - принято", c.Update().GetMessage().Body.Text))
 		//if err != nil {
 		//	return err

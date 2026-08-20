@@ -115,11 +115,9 @@ func (a *Api) ProcessContext(c Context) {
 		return
 	}
 
-	if a.handle(OnText, c) {
+	if a.handle(string(u.UpdateType), c) {
 		return
 	}
-
-	a.handle(string(u.UpdateType), c)
 }
 
 func (a *Api) WebhookHandler() http.HandlerFunc {
