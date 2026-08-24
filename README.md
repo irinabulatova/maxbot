@@ -213,4 +213,4 @@ bot.Use(errorMiddleware)
 
 ## Лицензия
 
-Этот проект лицензирован под Apache License 2.0 - подробности смотрите в файле [LICENSE](LICENSE)
+Этот проект лицензирован под Apache License 2.0 – подробности смотрите в файле [LICENSE](LICENSE)
